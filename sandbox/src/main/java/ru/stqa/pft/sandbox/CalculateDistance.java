@@ -6,8 +6,9 @@ package ru.stqa.pft.sandbox;
 public class CalculateDistance {
 
     public static void main(String[] args) {
-        Point calculate = new Point(10, 12, 25, 30);
-        System.out.println("Расстояние между двумя точками равно " + calculate.distance());
+        Point p1 = new Point(5, 25);
+        Point p2 = new Point(10, 15);
+        System.out.println("Расстояние между двумя точками равно " + Point.distance(p1, p2));
     }
 }
 
