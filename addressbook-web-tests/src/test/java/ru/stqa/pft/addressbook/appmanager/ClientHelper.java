@@ -14,42 +14,84 @@ public class ClientHelper extends HelperBase {
     }
 
     public void fillClientForm(ClientData clientData) {
-        click(By.name("firstname"));
-        clear(By.name("firstname"));
-        type(By.name("firstname"),clientData.getFirstName());
-        click(By.name("middlename"));
-        clear(By.name("middlename"));
-        type(By.name("middlename"),clientData.getMiddleName());
-        click(By.name("lastname"));
-        clear(By.name("lastname"));
-        type(By.name("lastname"), clientData.getLastName());
-        click(By.name("nickname"));
-        clear(By.name("nickname"));
-        type(By.name("nickname"),clientData.getNickName());
-        click(By.name("company"));
-        clear(By.name("company"));
-        type(By.name("company"), clientData.getCompany());
-        click(By.name("address"));
-        clear(By.name("address"));
-        type(By.name("address"), clientData.getAddress());
-        click(By.name("home"));
-        clear(By.name("home"));
-        type(By.name("home"), clientData.getHome());
-        click(By.name("mobile"));
-        clear(By.name("mobile"));
-        type(By.name("mobile"), clientData.getMobile());
-        click(By.name("work"));
-        clear(By.name("work"));
-        type(By.name("work"), clientData.getWork());
-        click(By.name("fax"));
-        clear(By.name("fax"));
-        type(By.name("fax"), clientData.getFax());
-        click (By.xpath("//div[@id='content']/form/input[21]"));
+        getFirstName(By.name("firstname"), clientData.getFirstName());
+        getMiddleName(By.name("middlename"), clientData.getMiddleName());
+        getLastName(By.name("lastname"), clientData.getLastName());
+        getNickName(By.name("nickname"), clientData.getNickName());
+        getCompany(By.name("company"), clientData.getCompany());
+        getAddress(By.name("address"), clientData.getAddress());
+        getHome(By.name("home"), clientData.getHome());
+        getMobile(By.name("mobile"), clientData.getMobile());
+        getWork(By.name("work"), clientData.getWork());
+        getFax(By.name("fax"), clientData.getFax());
+    }
+
+    private void getFax(By fax, String fax2) {
+        click(fax);
+        clear(fax);
+        type(fax, fax2);
+    }
+
+    private void getWork(By work, String work2) {
+        click(work);
+        clear(work);
+        type(work, work2);
+    }
+
+    private void getMobile(By mobile, String mobile2) {
+        click(mobile);
+        clear(mobile);
+        type(mobile, mobile2);
+    }
+
+    private void getHome(By home, String home2) {
+        click(home);
+        clear(home);
+        type(home, home2);
+    }
+
+    private void getAddress(By address, String address2) {
+        click(address);
+        clear(address);
+        type(address, address2);
+    }
+
+    private void getCompany(By company, String company2) {
+        click(company);
+        clear(company);
+        type(company, company2);
+    }
+
+    private void getNickName(By nickname, String nickName) {
+        click(nickname);
+        clear(nickname);
+        type(nickname, nickName);
+    }
+
+    private void getLastName(By lastname, String lastName) {
+        click(lastname);
+        clear(lastname);
+        type(lastname, lastName);
+    }
+
+    private void getMiddleName(By middlename, String middleName) {
+        click(middlename);
+        clear(middlename);
+        type(middlename, middleName);
+    }
+
+    private void getFirstName(By firstname, String firstName) {
+        click(firstname);
+        clear(firstname);
+        type(firstname, firstName);
+    }
+
+    public void submitClientCreation() {
+        click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
 
-
     public void initClientGeneration() {
-        wd.findElement(By.linkText("add new")).click();
+        click(By.linkText("add new"));
     }
 }
