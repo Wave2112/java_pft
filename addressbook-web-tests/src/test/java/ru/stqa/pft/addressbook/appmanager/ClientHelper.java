@@ -117,4 +117,8 @@ public class ClientHelper extends HelperBase {
     public void acceptDelete() {
         wd.switchTo().alert().accept();
     }
+    public void editClient() {
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    }
+
 }
