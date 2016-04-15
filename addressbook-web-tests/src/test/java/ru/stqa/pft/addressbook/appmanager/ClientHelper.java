@@ -24,6 +24,19 @@ public class ClientHelper extends HelperBase {
         getMobile(By.name("mobile"), clientData.getMobile());
         getWork(By.name("work"), clientData.getWork());
         getFax(By.name("fax"), clientData.getFax());
+        getDate(By.name("byear"), clientData.getDate());
+        getAnniversary(By.name("ayear"),clientData.getAnnyversary());
+    }
+
+    private void getDate(By date, String date2) {
+        click(By.xpath("//div[@id='content']/form/select[1]//option[15]"));
+        click(By.xpath("//div[@id='content']/form/select[2]//option[3]"));
+        type(date, date2);
+    }
+    private void getAnniversary (By date, String date2) {
+        click(By.xpath("//div[@id='content']/form/select[4]//option[5]"));
+        click(By.xpath("//div[@id='content']/form/select[3]//option[3]"));
+        type(date, date2);
     }
 
     private void getFax(By fax, String fax2) {
@@ -93,5 +106,15 @@ public class ClientHelper extends HelperBase {
 
     public void initClientGeneration() {
         click(By.linkText("add new"));
+    }
+    public void getClients() {
+       click(By.id("MassCB"));
+    }
+
+    public void deleteClient() {
+        click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+    }
+    public void acceptDelete() {
+        wd.switchTo().alert().accept();
     }
 }

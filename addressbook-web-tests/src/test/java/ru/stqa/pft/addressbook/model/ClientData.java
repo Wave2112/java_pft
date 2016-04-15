@@ -11,8 +11,12 @@ public class ClientData {
     private final String mobile;
     private final String work;
     private final String fax;
+    private final String date;
+    public final String annyversary;
 
-    public ClientData(String firstName, String middleName, String lastName, String nickName, String company, String address, String home, String mobile, String work, String fax) {
+    public ClientData(String firstName, String middleName, String lastName, String nickName,
+                      String company, String address, String home, String mobile,
+                      String work, String fax, String date, String annyversary) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -23,6 +27,8 @@ public class ClientData {
         this.mobile = mobile;
         this.work = work;
         this.fax = fax;
+        this.date = date;
+        this.annyversary = annyversary;
     }
 
     public String getFirstName() {
@@ -64,4 +70,8 @@ public class ClientData {
     public String getFax() {
         return fax;
     }
+
+    public String getDate() { return date; }
+
+    public String getAnnyversary() { return date; }
 }

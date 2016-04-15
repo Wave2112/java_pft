@@ -9,6 +9,8 @@ public class ClientDeletionTests extends TestBase {
     @Test
     public void testClientDeletion(){
         app.returnToHomePage();
-
+        app.getClientHelper().getClients();
+        app.getClientHelper().deleteClient();
+        app.getClientHelper().acceptDelete();
     }
 }
