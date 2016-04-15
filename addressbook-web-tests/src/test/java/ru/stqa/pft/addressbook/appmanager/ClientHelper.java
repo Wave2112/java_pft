@@ -8,7 +8,7 @@ import ru.stqa.pft.addressbook.model.ClientData;
  * Created by Sergei on 15.04.2016.
  */
 public class ClientHelper {
-    FirefoxDriver wd;
+    private FirefoxDriver wd;
     public ClientHelper(FirefoxDriver wd){
         this.wd = wd;
     }

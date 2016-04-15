@@ -8,7 +8,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
  * Created by Sergei on 15.04.2016.
  */
 public class GroupHelper {
-    FirefoxDriver wd;
+    private FirefoxDriver wd;
 
     public GroupHelper(FirefoxDriver wd) {
         this.wd = wd;

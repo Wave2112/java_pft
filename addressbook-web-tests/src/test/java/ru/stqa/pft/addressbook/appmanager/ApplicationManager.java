@@ -10,6 +10,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class ApplicationManager {
     FirefoxDriver wd;
+    private SessionHelper sessionHelper;
+    private NavigationHelper navigationHelper;
     private ClientHelper clientHelper;
     private GroupHelper groupHelper;
 
@@ -19,29 +21,18 @@ public class ApplicationManager {
         wd.get("http://localhost/addressbook/group.php");
         groupHelper = new GroupHelper(wd);
         clientHelper = new ClientHelper(wd);
-        login("admin", "secret");
+        navigationHelper = new NavigationHelper(wd);
+        sessionHelper = new SessionHelper(wd);
+        sessionHelper.login("admin", "secret");
     }
 
-    private void login(String username, String password) {
-        wd.findElement(By.name("pass")).click();
-        wd.findElement(By.name("pass")).clear();
-        wd.findElement(By.name("pass")).sendKeys(password);
-        wd.findElement(By.name("user")).click();
-        wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys(username);
-        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
-    }
-
-    public void gotoGroupPage() {
-        clientHelper.wd.findElement(By.linkText("groups")).click();
-    }
 
     public void returnToHomePage() {
-       clientHelper.wd.findElement(By.linkText("home page")).click();
+        wd.findElement(By.linkText("home page")).click();
     }
 
     public void stop() {
-        clientHelper.wd.quit();
+        wd.quit();
     }
 
     public GroupHelper getGroupHelper() {
@@ -50,5 +41,9 @@ public class ApplicationManager {
 
     public ClientHelper getClientHelper() {
         return clientHelper;
+    }
+
+    public NavigationHelper getNavigationHelper() {
+        return navigationHelper;
     }
 }
