@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class ClientDeletionTests extends TestBase {
     @Test
     public void testClientDeletion(){
-        app.returnToHomePage();
+        app.getNavigationHelper().goToHomePage();
         app.getClientHelper().getClients();
         app.getClientHelper().deleteClient();
         app.getClientHelper().acceptDelete();

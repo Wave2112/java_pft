@@ -11,8 +11,8 @@ public class ClientCreationTests  extends TestBase{
         app.getClientHelper().initClientGeneration();
         app.getClientHelper()
                 .fillClientForm(new ClientData("tesname", "213", "teeest", "test",
-                        "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", "Test1"), true);
+                        "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", "test1"), true);
         app.getClientHelper().submitClientCreation();
-        app.returnToHomePage();
+        app.getNavigationHelper().goToHomePage();
     }
 }

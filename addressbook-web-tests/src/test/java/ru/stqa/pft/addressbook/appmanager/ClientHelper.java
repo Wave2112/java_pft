@@ -132,5 +132,7 @@ public class ClientHelper extends HelperBase {
     public void editClient() {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
-
+    public void returnToHomePage() {
+        wd.findElement(By.linkText("home")).click();
+    }
 }
