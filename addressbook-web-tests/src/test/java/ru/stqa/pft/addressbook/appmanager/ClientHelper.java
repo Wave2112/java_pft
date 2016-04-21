@@ -1,7 +1,7 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 import ru.stqa.pft.addressbook.model.ClientData;
 
 /**
@@ -9,7 +9,7 @@ import ru.stqa.pft.addressbook.model.ClientData;
  */
 public class ClientHelper extends HelperBase {
 
-    public ClientHelper(FirefoxDriver wd){
+    public ClientHelper(WebDriver wd){
         super(wd);
     }
 
