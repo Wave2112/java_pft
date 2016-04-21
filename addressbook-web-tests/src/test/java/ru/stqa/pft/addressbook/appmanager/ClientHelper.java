@@ -2,6 +2,8 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ClientData;
 
 /**
@@ -9,11 +11,11 @@ import ru.stqa.pft.addressbook.model.ClientData;
  */
 public class ClientHelper extends HelperBase {
 
-    public ClientHelper(WebDriver wd){
+    public ClientHelper(WebDriver wd) {
         super(wd);
     }
 
-    public void fillClientForm(ClientData clientData) {
+    public void fillClientForm(ClientData clientData, boolean creation) {
         getFirstName(By.name("firstname"), clientData.getFirstName());
         getMiddleName(By.name("middlename"), clientData.getMiddleName());
         getLastName(By.name("lastname"), clientData.getLastName());
@@ -25,7 +27,13 @@ public class ClientHelper extends HelperBase {
         getWork(By.name("work"), clientData.getWork());
         getFax(By.name("fax"), clientData.getFax());
         getDate(By.name("byear"), clientData.getDate());
-        getAnniversary(By.name("ayear"),clientData.getAnnyversary());
+        getAnniversary(By.name("ayear"), clientData.getAnnyversary());
+        if (creation){
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroup());
+        }
+        else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     private void getDate(By date, String date2) {
@@ -33,7 +41,8 @@ public class ClientHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form/select[2]//option[3]"));
         type(date, date2);
     }
-    private void getAnniversary (By date, String date2) {
+
+    private void getAnniversary(By date, String date2) {
         click(By.xpath("//div[@id='content']/form/select[4]//option[5]"));
         click(By.xpath("//div[@id='content']/form/select[3]//option[3]"));
         type(date, date2);
@@ -107,16 +116,19 @@ public class ClientHelper extends HelperBase {
     public void initClientGeneration() {
         click(By.linkText("add new"));
     }
+
     public void getClients() {
-       click(By.id("MassCB"));
+        click(By.id("MassCB"));
     }
 
     public void deleteClient() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     }
+
     public void acceptDelete() {
         wd.switchTo().alert().accept();
     }
+
     public void editClient() {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }

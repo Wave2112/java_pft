@@ -12,10 +12,9 @@ public class ClientModificationTests extends TestBase{
     public void testClientModification(){
     app.returnToHomePage();
     app.getClientHelper().editClient();
-    app.getClientHelper().initClientGeneration();
     app.getClientHelper()
             .fillClientForm(new ClientData("tesname", "213", "teeest", "test",
-            "test", "sssss", "123", "4421", "555", "1111", "1991", "2313"));
+            "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", null), false);
     app.getClientHelper().submitClientCreation();
     app.returnToHomePage();
     }

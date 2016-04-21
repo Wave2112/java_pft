@@ -13,10 +13,12 @@ public class ClientData {
     private final String fax;
     private final String date;
     public final String annyversary;
+    public final String group;
+
 
     public ClientData(String firstName, String middleName, String lastName, String nickName,
                       String company, String address, String home, String mobile,
-                      String work, String fax, String date, String annyversary) {
+                      String work, String fax, String date, String annyversary, String group) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -29,6 +31,7 @@ public class ClientData {
         this.fax = fax;
         this.date = date;
         this.annyversary = annyversary;
+        this.group = group;
     }
 
     public String getFirstName() {
@@ -71,7 +74,15 @@ public class ClientData {
         return fax;
     }
 
-    public String getDate() { return date; }
+    public String getDate() {
+        return date;
+    }
 
-    public String getAnnyversary() { return date; }
+    public String getAnnyversary() {
+        return date;
+    }
+
+    public String getGroup() {
+        return group;
+    }
 }
