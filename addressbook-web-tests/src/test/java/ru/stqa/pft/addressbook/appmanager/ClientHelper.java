@@ -28,10 +28,9 @@ public class ClientHelper extends HelperBase {
         getFax(By.name("fax"), clientData.getFax());
         getDate(By.name("byear"), clientData.getDate());
         getAnniversary(By.name("ayear"), clientData.getAnnyversary());
-        if (creation){
+        if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroup());
-        }
-        else {
+        } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
     }
@@ -132,7 +131,14 @@ public class ClientHelper extends HelperBase {
     public void editClient() {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
-    public void returnToHomePage() {
-        wd.findElement(By.linkText("home")).click();
+
+    public void areThereClients() {
+        if (! isElementPresent(By.id("maintaible"))) {
+            initClientGeneration();
+            fillClientForm(new ClientData("tesname", "213", "teeest", "test",
+                    "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", "Test1"), true);
+            submitClientCreation();
+            wd.findElement(By.linkText("home")).click();
+        }
     }
 }

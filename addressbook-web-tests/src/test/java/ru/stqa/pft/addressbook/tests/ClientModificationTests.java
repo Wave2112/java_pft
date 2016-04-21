@@ -11,6 +11,7 @@ public class ClientModificationTests extends TestBase{
     @Test
     public void testClientModification(){
     app.getNavigationHelper().goToHomePage();
+    app.getClientHelper().areThereClients();
     app.getClientHelper().editClient();
     app.getClientHelper()
             .fillClientForm(new ClientData("tesname", "213", "teeest", "test",

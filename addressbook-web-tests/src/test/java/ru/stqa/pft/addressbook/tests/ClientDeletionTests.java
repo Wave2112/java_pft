@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+
 import org.testng.annotations.Test;
 
 /**
@@ -9,6 +10,7 @@ public class ClientDeletionTests extends TestBase {
     @Test
     public void testClientDeletion(){
         app.getNavigationHelper().goToHomePage();
+        app.getClientHelper().areThereClients();
         app.getClientHelper().getClients();
         app.getClientHelper().deleteClient();
         app.getClientHelper().acceptDelete();
