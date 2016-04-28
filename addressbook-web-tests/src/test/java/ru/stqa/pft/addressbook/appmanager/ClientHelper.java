@@ -2,9 +2,13 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ClientData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sergei on 15.04.2016.
@@ -13,7 +17,16 @@ public class ClientHelper extends HelperBase {
     public int getClientCount(){
         return wd.findElements(By.name("entry")).size();
     }
-
+    public List<ClientData> getClientList() {
+        List<ClientData> groups = new ArrayList<ClientData>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        for (WebElement element : elements) {
+            String lastName = element.findElement(By.xpath("td")).getText();
+            ClientData client = new ClientData(lastName, null, null, null, null, null, null, null, null, null, null, null, null);
+            groups.add(client);
+        }
+        return groups;
+    }
 
     public ClientHelper(WebDriver wd) {
         super(wd);

@@ -2,6 +2,9 @@ package ru.stqa.pft.addressbook.tests;
 
 
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.ClientData;
+
+import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
@@ -12,13 +15,13 @@ public class ClientDeletionTests extends TestBase {
     @Test
     public void testClientDeletion(){
         app.getNavigationHelper().goToHomePage();
-        int before = app.getClientHelper().getClientCount();
+        List<ClientData> before = app.getClientHelper().getClientList();
         app.getClientHelper().areThereClients();
         app.getClientHelper().getClients();
         app.getClientHelper().deleteClient();
         app.getClientHelper().acceptDelete();
         app.getNavigationHelper().goToHomePage();
-        int after = app.getClientHelper().getClientCount();
-        assertEquals(after, before - 1, "Некорректное количество клиентов");
+        List<ClientData> after = app.getClientHelper().getClientList();
+        assertEquals(after.size(), before.size() - 1, "Некорректное количество клиентов");
     }
 }
