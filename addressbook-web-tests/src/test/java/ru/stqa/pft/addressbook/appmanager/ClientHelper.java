@@ -10,6 +10,10 @@ import ru.stqa.pft.addressbook.model.ClientData;
  * Created by Sergei on 15.04.2016.
  */
 public class ClientHelper extends HelperBase {
+    public int getClientCount(){
+        return wd.findElements(By.name("entry")).size();
+    }
+
 
     public ClientHelper(WebDriver wd) {
         super(wd);
