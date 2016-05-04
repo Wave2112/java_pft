@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import org.w3c.dom.stylesheets.LinkStyle;
 import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.util.HashSet;
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
