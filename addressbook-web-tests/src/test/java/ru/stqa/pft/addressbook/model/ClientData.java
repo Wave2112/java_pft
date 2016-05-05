@@ -99,7 +99,7 @@ public class ClientData {
         this.date = date;
         this.annyversary = annyversary;
         this.group = group;
-        this.id = 0;
+        this.id = Integer.MAX_VALUE;
     }
 
     public String getFirstName() {
