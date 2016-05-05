@@ -21,7 +21,9 @@ public class ClientHelper extends HelperBase {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             String lastName = cells.get(1).getText();
             String firstName = cells.get(2).getText();
-            ClientData client = new ClientData(firstName, null, lastName, null, null, null, null, null, null, null, null, null, null);
+            String address = cells.get(3).getText();
+            int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("id"));
+            ClientData client = new ClientData(id, firstName, null, lastName, null, null, address, null, null, null, null, null, null, null);
             clients.add(client);
         }
         return clients;
@@ -156,5 +158,8 @@ public class ClientHelper extends HelperBase {
             submitClientCreation();
             wd.findElement(By.linkText("home")).click();
         }
+    }
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
     }
 }

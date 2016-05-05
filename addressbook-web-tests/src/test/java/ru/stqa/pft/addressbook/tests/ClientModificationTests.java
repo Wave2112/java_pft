@@ -28,7 +28,8 @@ public class ClientModificationTests extends TestBase {
         List<ClientData> after = app.getClientHelper().getClientList();
         System.out.println(after);
         assertEquals(after.size(), before.size(), "Некорректное количество клиентов");
-        before.remove(before.size() - 1);
+        before.remove(before.size()-1);
         before.add(client);
+        assertEquals(new HashSet<Object> (after), new HashSet<Object> (before));
     }
 }
