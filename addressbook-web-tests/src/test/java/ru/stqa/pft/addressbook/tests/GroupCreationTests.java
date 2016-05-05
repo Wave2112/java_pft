@@ -17,7 +17,6 @@ public class GroupCreationTests extends TestBase {
         app.getNavigationHelper().goToGroupPage();
         List<GroupData> before = app.getGroupHelper().getGroupList();
         app.getGroupHelper().createGroup(new GroupData("Test1", null, null));
-        app.getGroupHelper().returnToGroupPage();
         List<GroupData> after = app.getGroupHelper().getGroupList();
         assertEquals(after.size(), before.size() + 1, "Некорректное количество групп");
     }
