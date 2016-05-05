@@ -14,18 +14,17 @@ import java.util.List;
  * Created by Sergei on 15.04.2016.
  */
 public class ClientHelper extends HelperBase {
-    public int getClientCount(){
-        return wd.findElements(By.name("entry")).size();
-    }
     public List<ClientData> getClientList() {
-        List<ClientData> groups = new ArrayList<ClientData>();
-        List<WebElement> elements = wd.findElements(By.name("entry"));
-        for (WebElement element : elements) {
-            String lastName = element.findElement(By.xpath("td")).getText();
-            ClientData client = new ClientData(lastName, null, null, null, null, null, null, null, null, null, null, null, null);
-            groups.add(client);
+        List<ClientData> clients = new ArrayList<ClientData>();
+        List<WebElement> rows = wd.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            String lastName = cells.get(1).getText();
+            String firstName = cells.get(2).getText();
+            ClientData client = new ClientData(firstName, null, lastName, null, null, null, null, null, null, null, null, null, null);
+            clients.add(client);
         }
-        return groups;
+        return clients;
     }
 
     public ClientHelper(WebDriver wd) {
@@ -133,8 +132,8 @@ public class ClientHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void getClients() {
-        click(By.id("MassCB"));
+    public void getClients(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void deleteClient() {
@@ -146,11 +145,11 @@ public class ClientHelper extends HelperBase {
     }
 
     public void editClient() {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+        click(By.cssSelector("img[alt='Edit']"));
     }
 
     public void areThereClients() {
-        if (! isElementPresent(By.id("maintaible"))) {
+        if (! isElementPresent(By.name("entry"))) {
             initClientGeneration();
             fillClientForm(new ClientData("tesname", "213", "teeest", "test",
                     "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", "Test1"), true);

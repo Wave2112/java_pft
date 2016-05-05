@@ -19,7 +19,7 @@ public class GroupModificationTests extends TestBase {
             app.getGroupHelper().createGroup(new GroupData("Test1", null, null));
         }
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().selectGroup(before.size() - 1);
+        app.getGroupHelper().selectGroup(before.size() - 1).getId();
         app.getGroupHelper().initGroupModification();
         GroupData group = new GroupData("Test1", "Test2", "Test3");
         app.getGroupHelper().fillGroupForm(group);
@@ -29,6 +29,6 @@ public class GroupModificationTests extends TestBase {
         assertEquals(after.size(), before.size(), "Некорректное количество групп");
         before.remove(before.size() - 1);
         before.add(group);
-        assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        assertEquals(new HashSet<Object>(after), new HashSet<Object>(before));
     }
 }
