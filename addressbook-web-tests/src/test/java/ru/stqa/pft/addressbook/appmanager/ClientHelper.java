@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ClientHelper extends HelperBase {
     public List<ClientData> getClientList() {
-        List<ClientData> clients = new ArrayList<ClientData>();
+        List<ClientData> clients = new ArrayList<>();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -161,5 +161,8 @@ public class ClientHelper extends HelperBase {
     }
     public void selectContactById(int id) {
         wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
+    }
+    public void editSelectedClient() {
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
 }

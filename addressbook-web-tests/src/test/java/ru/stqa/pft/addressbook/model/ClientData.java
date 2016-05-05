@@ -34,6 +34,12 @@ public class ClientData {
     private final String date;
     private final String annyversary;
     private final String group;
+
+    public ClientData setId(int id) {
+        this.id = id;
+        return this;
+    }
+
     private int id;
 
 

@@ -18,7 +18,8 @@ public class ClientModificationTests extends TestBase {
         app.getNavigationHelper().goToHomePage();
         app.getClientHelper().areThereClients();
         List<ClientData> before = app.getClientHelper().getClientList();
-        app.getClientHelper().editClient();
+        app.getClientHelper().selectContactById(before.get(0).getId());
+        app.getClientHelper().editSelectedClient();
         ClientData client = new ClientData("tesname", "213", "teeest", "test",
                 "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", null);
         app.getClientHelper()
@@ -26,7 +27,6 @@ public class ClientModificationTests extends TestBase {
         app.getClientHelper().submitClientCreation();
         app.getNavigationHelper().goToHomePage();
         List<ClientData> after = app.getClientHelper().getClientList();
-        System.out.println(after);
         assertEquals(after.size(), before.size(), "Некорректное количество клиентов");
         before.remove(before.size()-1);
         before.add(client);
