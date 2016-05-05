@@ -29,5 +29,6 @@ public class GroupModificationTests extends TestBase {
         assertEquals(after.size(), before.size(), "Некорректное количество групп");
         before.remove(before.size() - 1);
         before.add(group);
+        assertEquals(new HashSet<Object> (after), new HashSet<Object> (before));
     }
 }
