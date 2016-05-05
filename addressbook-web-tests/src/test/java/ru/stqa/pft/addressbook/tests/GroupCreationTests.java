@@ -16,8 +16,19 @@ public class GroupCreationTests extends TestBase {
     public void testGroupCreation() {
         app.getNavigationHelper().goToGroupPage();
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().createGroup(new GroupData("Test1", null, null));
+        GroupData group = new GroupData("Test1", null, null);
+        app.getGroupHelper().createGroup(group);
         List<GroupData> after = app.getGroupHelper().getGroupList();
         assertEquals(after.size(), before.size() + 1, "Некорректное количество групп");
+
+        int max = 0;
+        for (GroupData g : after) {
+            if (g.getId() > max) {
+                max = g.getId();
+            }
+        }
+        group.setId(max);
+        before.add(group);
+        assertEquals(new HashSet<Object> (after), new HashSet<Object> (before));
     }
 }
