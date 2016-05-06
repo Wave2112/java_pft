@@ -2,6 +2,32 @@ package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
 
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String nickName;
+    private String company;
+    private String address;
+    private String home;
+    private String mobile;
+    private String work;
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+    private String allPhones;
+    private String fax;
+    private String date;
+    private String annyversary;
+    private String group;
+    private int id;
+
     @Override
     public String toString() {
         return "ClientData{" +
@@ -86,20 +112,6 @@ public class ContactData {
         return this;
     }
 
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String nickName;
-    private String company;
-    private String address;
-    private String home;
-    private String mobile;
-    private String work;
-    private String fax;
-    private String date;
-    private String annyversary;
-    private String group;
-    private int id;
 
     @Override
     public boolean equals(Object o) {
