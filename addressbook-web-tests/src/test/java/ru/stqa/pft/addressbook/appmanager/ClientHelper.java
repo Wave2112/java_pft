@@ -113,14 +113,13 @@ public class ClientHelper extends HelperBase {
 
     public void initClientGeneration() {
         click(By.linkText("add new"));
+        clientCache = null;
     }
 
-    public void getClients(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
-    }
 
     public void deleteClient() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+        clientCache = null;
     }
 
     public void acceptDelete() {
@@ -134,16 +133,22 @@ public class ClientHelper extends HelperBase {
 
     public void editSelectedClient() {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+        clientCache = null;
     }
 
 
     public void delete(ClientData client) {
         selectClientById(client.getId());
         deleteClient();
+        clientCache = null;
         acceptDelete();
     }
+    private Clients clientCache = null;
     public Clients all() {
-        Clients clients = new Clients();
+        if (clientCache != null) {
+            return new Clients(clientCache);
+        }
+        clientCache = new Clients();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -151,9 +156,9 @@ public class ClientHelper extends HelperBase {
             String lastName = cells.get(1).getText();
             String firstName = cells.get(2).getText();
             String address = cells.get(3).getText();
-            clients.add(new ClientData()
+            clientCache.add(new ClientData()
                     .withId(id).withFirstName(firstName).withLastName(lastName).withAddress(address));
         }
-        return clients;
+        return new Clients(clientCache);
     }
 }
