@@ -3,11 +3,10 @@ package ru.stqa.pft.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.Clients;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -30,22 +29,18 @@ public class ClientModificationTests extends TestBase {
     @Test
     public void testClientModification() {
         app.goTo().homePage();
-        Set<ClientData> before = app.client().all();
+        Clients before = app.client().all();
         ClientData modifiedClient = before.iterator().next();
+        ClientData client = new ClientData().withId(modifiedClient.getId())
+                .withFirstName("tesname").withLastName("teeest").withAddress("sssss");
         app.client().selectClientById(modifiedClient.getId());
         app.client().editSelectedClient();
-        ClientData client = new ClientData()
-                .withFirstName("tesname").withMiddleName("213").withLastName("teeest").withNickName("test")
-                .withCompany("test").withAddress("sssss").withHome("123").withWork("4421")
-                .withFax("555").withDate("1111").withDate("1991").withAnnyversary("2313");
         app.client()
                 .fillClientForm(client, false);
         app.client().submitClientCreation();
         app.goTo().homePage();
-        Set<ClientData> after = app.client().all();
+        Clients after = app.client().all();
         assertEquals(after.size(), before.size(), "Некорректное количество клиентов");
-        before.remove(modifiedClient);
-        before.add(client);
-        assertEquals(after, before);
+        assertThat(after, equalTo(before.without(modifiedClient).withAdded(client)));
     }
 }

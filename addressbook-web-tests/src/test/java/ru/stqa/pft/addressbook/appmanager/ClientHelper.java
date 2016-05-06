@@ -6,10 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ClientData;
+import ru.stqa.pft.addressbook.model.Clients;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Sergei on 15.04.2016.
@@ -143,8 +142,8 @@ public class ClientHelper extends HelperBase {
         deleteClient();
         acceptDelete();
     }
-    public Set<ClientData> all() {
-        Set<ClientData> clients = new HashSet<>();
+    public Clients all() {
+        Clients clients = new Clients();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));

@@ -1,13 +1,12 @@
 package ru.stqa.pft.addressbook.tests;
 
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import ru.stqa.pft.addressbook.model.Clients;
 
 import static org.testng.Assert.assertEquals;
 
@@ -29,16 +28,13 @@ public class ClientDeletionTests extends TestBase {
     @Test
     public void testClientDeletion(){
         app.goTo().homePage();
-        Set<ClientData> before = app.client().all();
+        Clients before = app.client().all();
         ClientData deletedClient = before.iterator().next();
         app.client().delete(deletedClient);
         app.goTo().homePage();
-        Set<ClientData> after = app.client().all();
+        Clients after = app.client().all();
         assertEquals(after.size(), before.size() - 1, "Некорректное количество клиентов");
-        before.remove(deletedClient);
-        assertEquals(after,before);
-        assertEquals(new HashSet<Object>(after), new HashSet<Object>(before));
-
+        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedClient)));
     }
 
 }
