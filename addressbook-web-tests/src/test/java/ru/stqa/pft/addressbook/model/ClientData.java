@@ -12,7 +12,6 @@ public class ClientData {
                 ", company='" + company + '\'' +
                 ", address='" + address + '\'' +
                 ", home='" + home + '\'' +
-                ", mobile='" + mobile + '\'' +
                 ", work='" + work + '\'' +
                 ", fax='" + fax + '\'' +
                 ", date='" + date + '\'' +
@@ -21,46 +20,89 @@ public class ClientData {
                 '}';
     }
 
-    private final String firstName;
-    private final String middleName;
-    private final String lastName;
-    private final String nickName;
-    private final String company;
-    private final String address;
-    private final String home;
-    private final String mobile;
-    private final String work;
-    private final String fax;
-    private final String date;
-    private final String annyversary;
-    private final String group;
+    public ClientData withNickName(String nickName) {
+        this.nickName = nickName;
+        return this;
+    }
 
-    public ClientData setId(int id) {
+    public ClientData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ClientData withFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public ClientData withMiddleName(String middleName) {
+        this.middleName = middleName;
+        return this;
+    }
+
+    public ClientData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public ClientData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ClientData withHome(String home) {
+        this.home = home;
+        return this;
+    }
+
+
+    public ClientData withWork(String work) {
+        this.work = work;
+        return this;
+    }
+
+    public ClientData withFax(String fax) {
+        this.fax = fax;
+        return this;
+    }
+
+    public ClientData withDate(String date) {
+        this.date = date;
+        return this;
+    }
+
+    public ClientData withAnnyversary(String annyversary) {
+        this.annyversary = annyversary;
+        return this;
+    }
+
+    public ClientData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
+
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String nickName;
+    private String company;
+    private String address;
+    private String home;
+    private String work;
+    private String fax;
+    private String date;
+    private String annyversary;
+    private String group;
+    private int id;
+
+    public ClientData withId(int id) {
         this.id = id;
         return this;
     }
 
-    private int id;
 
 
-    public ClientData(int id, String firstName, String middleName, String lastName, String nickName,
-                           String company, String address, String home, String mobile,
-                           String work, String fax, String date, String annyversary, String group) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.company = company;
-        this.address = address;
-        this.home = home;
-        this.mobile = mobile;
-        this.work = work;
-        this.fax = fax;
-        this.date = date;
-        this.annyversary = annyversary;
-        this.group = group;
-        this.id = id;
-    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -83,24 +125,6 @@ public class ClientData {
         return result;
     }
 
-    public ClientData(String firstName, String middleName, String lastName, String nickName,
-                      String company, String address, String home, String mobile,
-                      String work, String fax, String date, String annyversary, String group) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.company = company;
-        this.address = address;
-        this.home = home;
-        this.mobile = mobile;
-        this.work = work;
-        this.fax = fax;
-        this.date = date;
-        this.annyversary = annyversary;
-        this.group = group;
-        this.id = Integer.MAX_VALUE;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -128,10 +152,6 @@ public class ClientData {
 
     public String getHome() {
         return home;
-    }
-
-    public String getMobile() {
-        return mobile;
     }
 
     public String getWork() {

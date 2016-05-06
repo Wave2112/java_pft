@@ -23,7 +23,8 @@ public class ClientHelper extends HelperBase {
             String firstName = cells.get(2).getText();
             String address = cells.get(3).getText();
             int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("id"));
-            ClientData client = new ClientData(id, firstName, null, lastName, null, null, address, null, null, null, null, null, null, null);
+            ClientData client = new ClientData()
+                    .withId(id).withFirstName(firstName).withLastName(lastName).withAddress(address);
             clients.add(client);
         }
         return clients;
@@ -41,7 +42,6 @@ public class ClientHelper extends HelperBase {
         getCompany(By.name("company"), clientData.getCompany());
         getAddress(By.name("address"), clientData.getAddress());
         getHome(By.name("home"), clientData.getHome());
-        getMobile(By.name("mobile"), clientData.getMobile());
         getWork(By.name("work"), clientData.getWork());
         getFax(By.name("fax"), clientData.getFax());
         getDate(By.name("byear"), clientData.getDate());
@@ -150,14 +150,15 @@ public class ClientHelper extends HelperBase {
     public void selectContactById(int id) {
         wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
     }
+
     public void editSelectedClient() {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
 
     public void delete(int index) {
-       getClients(index);
-       deleteClient();
-       acceptDelete();
+        getClients(index);
+        deleteClient();
+        acceptDelete();
     }
 
 }

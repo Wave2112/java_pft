@@ -1,6 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
@@ -19,8 +18,10 @@ public class ClientModificationTests extends TestBase {
     public void areThereClients() {
         if (app.client().list().size() == 0) {
             app.client().initClientGeneration();
-            app.client().fillClientForm(new ClientData("tesname", "213", "teeest", "test",
-                    "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", "Test1"), true);
+            app.client().fillClientForm(new ClientData()
+                    .withFirstName("tesname").withMiddleName("213").withLastName("teeest").withNickName("test")
+                    .withCompany("test").withAddress("sssss").withHome("123").withWork("4421")
+                    .withFax("555").withDate("1111").withDate("1991").withAnnyversary("2313").withGroup("Test1"), true);
             app.client().submitClientCreation();
         }
     }
@@ -31,8 +32,10 @@ public class ClientModificationTests extends TestBase {
         List<ClientData> before = app.client().list();
         app.client().selectContactById(before.get(0).getId());
         app.client().editSelectedClient();
-        ClientData client = new ClientData("tesname", "213", "teeest", "test",
-                "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", null);
+        ClientData client = new ClientData()
+                .withFirstName("tesname").withMiddleName("213").withLastName("teeest").withNickName("test")
+                .withCompany("test").withAddress("sssss").withHome("123").withWork("4421")
+                .withFax("555").withDate("1111").withDate("1991").withAnnyversary("2313");
         app.client()
                 .fillClientForm(client, false);
         app.client().submitClientCreation();

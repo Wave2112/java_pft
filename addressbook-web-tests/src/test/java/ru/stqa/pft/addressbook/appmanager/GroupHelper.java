@@ -13,9 +13,6 @@ import java.util.List;
  */
 public class GroupHelper extends HelperBase {
 
-    public int getGroupCount(){
-       return wd.findElements(By.name("selected[]")).size();
-    }
 
     public GroupHelper(WebDriver wd) {
         super(wd);
