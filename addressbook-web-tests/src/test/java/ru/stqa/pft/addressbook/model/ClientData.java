@@ -95,15 +95,6 @@ public class ClientData {
     private String group;
     private int id;
 
-    public ClientData withId(int id) {
-        this.id = id;
-        return this;
-    }
-
-
-
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -111,6 +102,7 @@ public class ClientData {
 
         ClientData that = (ClientData) o;
 
+        if (id != that.id) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         return address != null ? address.equals(that.address) : that.address == null;
@@ -122,7 +114,13 @@ public class ClientData {
         int result = firstName != null ? firstName.hashCode() : 0;
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + id;
         return result;
+    }
+
+    public ClientData withId(int id) {
+        this.id = id;
+        return this;
     }
 
 

@@ -31,8 +31,8 @@ public class ClientModificationTests extends TestBase {
     public void testClientModification() {
         app.goTo().homePage();
         Set<ClientData> before = app.client().all();
-        ClientData deletedClient = before.iterator().next();
-        app.client().selectClientById(deletedClient.getId());
+        ClientData modifiedClient = before.iterator().next();
+        app.client().selectClientById(modifiedClient.getId());
         app.client().editSelectedClient();
         ClientData client = new ClientData()
                 .withFirstName("tesname").withMiddleName("213").withLastName("teeest").withNickName("test")
@@ -44,7 +44,7 @@ public class ClientModificationTests extends TestBase {
         app.goTo().homePage();
         Set<ClientData> after = app.client().all();
         assertEquals(after.size(), before.size(), "Некорректное количество клиентов");
-        before.remove(deletedClient);
+        before.remove(modifiedClient);
         before.add(client);
         assertEquals(after, before);
     }
