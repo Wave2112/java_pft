@@ -16,30 +16,30 @@ public class ContactModificationTests extends TestBase {
 
     @BeforeMethod
     public void areThereClients() {
-        if (app.client().all().size() == 0) {
-            app.client().initClientGeneration();
-            app.client().fillClientForm(new ContactData()
+        if (app.contact().all().size() == 0) {
+            app.contact().initClientGeneration();
+            app.contact().fillClientForm(new ContactData()
                     .withFirstName("tesname").withMiddleName("213").withLastName("teeest").withNickName("test")
-                    .withCompany("test").withAddress("sssss").withHome("123").withWork("4421")
+                    .withCompany("test").withAddress("sssss").withHomePhone("123").withWorkPhone("4421")
                     .withFax("555").withDate("1111").withDate("1991").withAnnyversary("2313").withGroup("Test1"), true);
-            app.client().submitClientCreation();
+            app.contact().submitClientCreation();
         }
     }
 
     @Test
     public void testClientModification() {
         app.goTo().homePage();
-        Contacts before = app.client().all();
+        Contacts before = app.contact().all();
         ContactData modifiedClient = before.iterator().next();
         ContactData client = new ContactData().withId(modifiedClient.getId())
                 .withFirstName("tesname").withLastName("teeest").withAddress("sssss");
-        app.client().selectClientById(modifiedClient.getId());
-        app.client().editSelectedClient();
-        app.client()
+        app.contact().selectClientById(modifiedClient.getId());
+        app.contact().editSelectedClient();
+        app.contact()
                 .fillClientForm(client, false);
-        app.client().submitClientCreation();
+        app.contact().submitClientCreation();
         app.goTo().homePage();
-        Contacts after = app.client().all();
+        Contacts after = app.contact().all();
         assertEquals(after.size(), before.size(), "Некорректное количество клиентов");
         assertThat(after, equalTo(before.without(modifiedClient).withAdded(client)));
     }

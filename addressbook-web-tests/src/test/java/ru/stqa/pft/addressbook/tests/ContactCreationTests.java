@@ -14,16 +14,16 @@ public class ContactCreationTests extends TestBase {
     @Test
     public void testClientCreation() {
         app.goTo().homePage();
-        Contacts before = app.client().all();
-        app.client().initClientGeneration();
+        Contacts before = app.contact().all();
+        app.contact().initClientGeneration();
         ContactData client = new ContactData()
                 .withFirstName("tesname").withMiddleName("213").withLastName("teeest").withNickName("test")
-                .withCompany("test").withAddress("sssss").withHome("123").withWork("4421")
+                .withCompany("test").withAddress("sssss").withHomePhone("123").withMobilePhone("213131").withWorkPhone("4421")
                 .withFax("555").withDate("1111").withDate("1991").withAnnyversary("2313").withGroup("Test1");
-        app.client().fillClientForm(client, true);
-        app.client().submitClientCreation();
+        app.contact().fillClientForm(client, true);
+        app.contact().submitClientCreation();
         app.goTo().homePage();
-        Contacts after = app.client().all();
+        Contacts after = app.contact().all();
         assertEquals(after.size(), before.size() + 1, "Некорректное количество клиентов");
         assertThat(after, equalTo(
                 before.withAdded(client.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
