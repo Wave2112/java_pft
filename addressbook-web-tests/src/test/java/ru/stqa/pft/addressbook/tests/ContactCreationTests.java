@@ -19,7 +19,10 @@ public class ContactCreationTests extends TestBase {
         ContactData client = new ContactData()
                 .withFirstName("tesname").withMiddleName("213").withLastName("teeest").withNickName("test")
                 .withCompany("test").withAddress("sssss").withHomePhone("123").withMobilePhone("213131").withWorkPhone("4421")
-                .withFax("555").withDate("1111").withDate("1991").withAnnyversary("2313").withGroup("Test1");
+                .withFax("555").withDate("1111").withDate("1991").withAnnyversary("2313").withGroup("Test1")
+                .withEmail("Test1@test.ru")
+                .withEmail2("Test2@mail.ru")
+                .withEmail3("Test3@mail.ru");
         app.contact().fillClientForm(client, true);
         app.contact().submitClientCreation();
         app.goTo().homePage();

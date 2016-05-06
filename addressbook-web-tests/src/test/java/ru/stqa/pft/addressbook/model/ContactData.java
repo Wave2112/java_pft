@@ -11,6 +11,51 @@ public class ContactData {
     private String home;
     private String mobile;
     private String work;
+    private String allPhones;
+    private String fax;
+    private String date;
+    private String annyversary;
+    private String group;
+    private String email;
+    private String email2;
+    private String email3;
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    private String allEmails;
+    private int id;
+
+
+    public String getEmail3() {
+        return email3;
+    }
+
+    public ContactData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+
+    public String getEmail2() {
+        return email2;
+    }
+
+    public ContactData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+
 
     public String getAllPhones() {
         return allPhones;
@@ -20,32 +65,11 @@ public class ContactData {
         this.allPhones = allPhones;
         return this;
     }
-
-    private String allPhones;
-    private String fax;
-    private String date;
-    private String annyversary;
-    private String group;
-    private int id;
-
-    @Override
-    public String toString() {
-        return "ClientData{" +
-                "firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", company='" + company + '\'' +
-                ", address='" + address + '\'' +
-                ", home='" + home + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", work='" + work + '\'' +
-                ", fax='" + fax + '\'' +
-                ", date='" + date + '\'' +
-                ", annyversary='" + annyversary + '\'' +
-                ", group='" + group + '\'' +
-                '}';
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
     }
+
 
     public ContactData withNickName(String nickName) {
         this.nickName = nickName;
