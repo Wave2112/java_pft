@@ -182,6 +182,7 @@ public class ContactHelper extends HelperBase {
         String email = wd.findElement(By.name("email")).getAttribute("value");
         String email2 = wd.findElement(By.name("email2")).getAttribute("value");
         String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstName(firstname).withLastName(lastname)
                 .withHomePhone(home)
@@ -189,7 +190,8 @@ public class ContactHelper extends HelperBase {
                 .withWorkPhone(work)
                 .withEmail(email)
                 .withEmail2(email2)
-                .withEmail3(email3);
+                .withEmail3(email3)
+                .withAddress(address);
     }
 
     private void initContactModificationById(int id) {
@@ -213,7 +215,8 @@ public class ContactHelper extends HelperBase {
             String allEmails = cells.get(4).getText();
             String allPhones = cells.get(5).getText();
             contactCache.add(new ContactData()
-                    .withId(id).withFirstName(firstName).withLastName(lastName).withAddress(address)
+                    .withId(id).withFirstName(firstName).withLastName(lastName)
+                    .withAddress(address)
                     .withAllPhones(allPhones)
                     .withAllEmails(allEmails));
         }
