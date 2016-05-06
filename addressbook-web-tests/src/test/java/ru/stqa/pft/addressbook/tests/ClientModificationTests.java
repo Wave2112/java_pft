@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.openqa.selenium.By;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ClientData;
 
@@ -13,10 +15,19 @@ import static org.testng.Assert.assertEquals;
  */
 public class ClientModificationTests extends TestBase {
 
+    @BeforeMethod
+    public void areThereClients() {
+        if (!app.getClientHelper().isElementPresent(By.name("entry"))) {
+            app.getClientHelper().initClientGeneration();
+            app.getClientHelper().fillClientForm(new ClientData("tesname", "213", "teeest", "test",
+                    "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", "Test1"), true);
+            app.getClientHelper().submitClientCreation();
+        }
+    }
+
     @Test
     public void testClientModification() {
         app.getNavigationHelper().goToHomePage();
-        app.getClientHelper().areThereClients();
         List<ClientData> before = app.getClientHelper().getClientList();
         app.getClientHelper().selectContactById(before.get(0).getId());
         app.getClientHelper().editSelectedClient();
@@ -28,7 +39,7 @@ public class ClientModificationTests extends TestBase {
         app.getNavigationHelper().goToHomePage();
         List<ClientData> after = app.getClientHelper().getClientList();
         assertEquals(after.size(), before.size(), "Некорректное количество клиентов");
-        before.remove(before.size()-1);
+        before.remove(before.size() - 1);
         before.add(client);
         Comparator<? super ClientData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
         before.sort(byId);

@@ -146,19 +146,7 @@ public class ClientHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void editClient() {
-        click(By.cssSelector("img[alt='Edit']"));
-    }
 
-    public void areThereClients() {
-        if (! isElementPresent(By.name("entry"))) {
-            initClientGeneration();
-            fillClientForm(new ClientData("tesname", "213", "teeest", "test",
-                    "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", "Test1"), true);
-            submitClientCreation();
-            wd.findElement(By.linkText("home")).click();
-        }
-    }
     public void selectContactById(int id) {
         wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
     }
