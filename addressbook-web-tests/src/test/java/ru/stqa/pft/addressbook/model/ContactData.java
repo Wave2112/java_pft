@@ -1,6 +1,6 @@
 package ru.stqa.pft.addressbook.model;
 
-public class ClientData {
+public class ContactData {
 
     @Override
     public String toString() {
@@ -20,63 +20,63 @@ public class ClientData {
                 '}';
     }
 
-    public ClientData withNickName(String nickName) {
+    public ContactData withNickName(String nickName) {
         this.nickName = nickName;
         return this;
     }
 
-    public ClientData withLastName(String lastName) {
+    public ContactData withLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    public ClientData withFirstName(String firstName) {
+    public ContactData withFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
 
-    public ClientData withMiddleName(String middleName) {
+    public ContactData withMiddleName(String middleName) {
         this.middleName = middleName;
         return this;
     }
 
-    public ClientData withCompany(String company) {
+    public ContactData withCompany(String company) {
         this.company = company;
         return this;
     }
 
-    public ClientData withAddress(String address) {
+    public ContactData withAddress(String address) {
         this.address = address;
         return this;
     }
 
-    public ClientData withHome(String home) {
+    public ContactData withHome(String home) {
         this.home = home;
         return this;
     }
 
 
-    public ClientData withWork(String work) {
+    public ContactData withWork(String work) {
         this.work = work;
         return this;
     }
 
-    public ClientData withFax(String fax) {
+    public ContactData withFax(String fax) {
         this.fax = fax;
         return this;
     }
 
-    public ClientData withDate(String date) {
+    public ContactData withDate(String date) {
         this.date = date;
         return this;
     }
 
-    public ClientData withAnnyversary(String annyversary) {
+    public ContactData withAnnyversary(String annyversary) {
         this.annyversary = annyversary;
         return this;
     }
 
-    public ClientData withGroup(String group) {
+    public ContactData withGroup(String group) {
         this.group = group;
         return this;
     }
@@ -100,7 +100,7 @@ public class ClientData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ClientData that = (ClientData) o;
+        ContactData that = (ContactData) o;
 
         if (id != that.id) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
@@ -118,7 +118,7 @@ public class ClientData {
         return result;
     }
 
-    public ClientData withId(int id) {
+    public ContactData withId(int id) {
         this.id = id;
         return this;
     }

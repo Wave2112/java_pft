@@ -5,35 +5,35 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-import ru.stqa.pft.addressbook.model.ClientData;
-import ru.stqa.pft.addressbook.model.Clients;
+import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.List;
 
 /**
  * Created by Sergei on 15.04.2016.
  */
-public class ClientHelper extends HelperBase {
+public class ContactHelper extends HelperBase {
 
 
-    public ClientHelper(WebDriver wd) {
+    public ContactHelper(WebDriver wd) {
         super(wd);
     }
 
-    public void fillClientForm(ClientData clientData, boolean creation) {
-        getFirstName(By.name("firstname"), clientData.getFirstName());
-        getMiddleName(By.name("middlename"), clientData.getMiddleName());
-        getLastName(By.name("lastname"), clientData.getLastName());
-        getNickName(By.name("nickname"), clientData.getNickName());
-        getCompany(By.name("company"), clientData.getCompany());
-        getAddress(By.name("address"), clientData.getAddress());
-        getHome(By.name("home"), clientData.getHome());
-        getWork(By.name("work"), clientData.getWork());
-        getFax(By.name("fax"), clientData.getFax());
-        getDate(By.name("byear"), clientData.getDate());
-        getAnniversary(By.name("ayear"), clientData.getAnnyversary());
+    public void fillClientForm(ContactData contactData, boolean creation) {
+        getFirstName(By.name("firstname"), contactData.getFirstName());
+        getMiddleName(By.name("middlename"), contactData.getMiddleName());
+        getLastName(By.name("lastname"), contactData.getLastName());
+        getNickName(By.name("nickname"), contactData.getNickName());
+        getCompany(By.name("company"), contactData.getCompany());
+        getAddress(By.name("address"), contactData.getAddress());
+        getHome(By.name("home"), contactData.getHome());
+        getWork(By.name("work"), contactData.getWork());
+        getFax(By.name("fax"), contactData.getFax());
+        getDate(By.name("byear"), contactData.getDate());
+        getAnniversary(By.name("ayear"), contactData.getAnnyversary());
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(clientData.getGroup());
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -113,13 +113,13 @@ public class ClientHelper extends HelperBase {
 
     public void initClientGeneration() {
         click(By.linkText("add new"));
-        clientCache = null;
+        contactCache = null;
     }
 
 
     public void deleteClient() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
-        clientCache = null;
+        contactCache = null;
     }
 
     public void acceptDelete() {
@@ -133,22 +133,22 @@ public class ClientHelper extends HelperBase {
 
     public void editSelectedClient() {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
-        clientCache = null;
+        contactCache = null;
     }
 
 
-    public void delete(ClientData client) {
-        selectClientById(client.getId());
+    public void delete(ContactData contact) {
+        selectClientById(contact.getId());
         deleteClient();
-        clientCache = null;
+        contactCache = null;
         acceptDelete();
     }
-    private Clients clientCache = null;
-    public Clients all() {
-        if (clientCache != null) {
-            return new Clients(clientCache);
+    private Contacts contactCache = null;
+    public Contacts all() {
+        if (contactCache != null) {
+            return new Contacts(contactCache);
         }
-        clientCache = new Clients();
+        contactCache = new Contacts();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -156,9 +156,9 @@ public class ClientHelper extends HelperBase {
             String lastName = cells.get(1).getText();
             String firstName = cells.get(2).getText();
             String address = cells.get(3).getText();
-            clientCache.add(new ClientData()
+            contactCache.add(new ContactData()
                     .withId(id).withFirstName(firstName).withLastName(lastName).withAddress(address));
         }
-        return new Clients(clientCache);
+        return new Contacts(contactCache);
     }
 }
