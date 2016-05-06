@@ -7,28 +7,15 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ClientData;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Sergei on 15.04.2016.
  */
 public class ClientHelper extends HelperBase {
-    public List<ClientData> list() {
-        List<ClientData> clients = new ArrayList<>();
-        List<WebElement> rows = wd.findElements(By.name("entry"));
-        for (WebElement row : rows) {
-            List<WebElement> cells = row.findElements(By.tagName("td"));
-            String lastName = cells.get(1).getText();
-            String firstName = cells.get(2).getText();
-            String address = cells.get(3).getText();
-            int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("id"));
-            ClientData client = new ClientData()
-                    .withId(id).withFirstName(firstName).withLastName(lastName).withAddress(address);
-            clients.add(client);
-        }
-        return clients;
-    }
+
 
     public ClientHelper(WebDriver wd) {
         super(wd);
@@ -77,11 +64,6 @@ public class ClientHelper extends HelperBase {
         type(work, work2);
     }
 
-    private void getMobile(By mobile, String mobile2) {
-        click(mobile);
-        clear(mobile);
-        type(mobile, mobile2);
-    }
 
     private void getHome(By home, String home2) {
         click(home);
@@ -147,7 +129,7 @@ public class ClientHelper extends HelperBase {
     }
 
 
-    public void selectContactById(int id) {
+    public void selectClientById(int id) {
         wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
     }
 
@@ -155,10 +137,24 @@ public class ClientHelper extends HelperBase {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
 
-    public void delete(int index) {
-        getClients(index);
+
+    public void delete(ClientData client) {
+        selectClientById(client.getId());
         deleteClient();
         acceptDelete();
     }
-
+    public Set<ClientData> all() {
+        Set<ClientData> clients = new HashSet<>();
+        List<WebElement> rows = wd.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
+            String lastName = cells.get(1).getText();
+            String firstName = cells.get(2).getText();
+            String address = cells.get(3).getText();
+            clients.add(new ClientData()
+                    .withId(id).withFirstName(firstName).withLastName(lastName).withAddress(address));
+        }
+        return clients;
+    }
 }

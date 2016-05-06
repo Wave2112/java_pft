@@ -32,7 +32,6 @@ public class GroupModificationTests extends TestBase {
         assertEquals(after.size(), before.size(), "Некорректное количество групп");
         before.remove(modifiedGroup);
         before.add(group);
-
         assertEquals(after, before);
     }
 

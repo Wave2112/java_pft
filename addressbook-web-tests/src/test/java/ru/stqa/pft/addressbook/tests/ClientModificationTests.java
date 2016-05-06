@@ -6,6 +6,7 @@ import ru.stqa.pft.addressbook.model.ClientData;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
@@ -16,7 +17,7 @@ public class ClientModificationTests extends TestBase {
 
     @BeforeMethod
     public void areThereClients() {
-        if (app.client().list().size() == 0) {
+        if (app.client().all().size() == 0) {
             app.client().initClientGeneration();
             app.client().fillClientForm(new ClientData()
                     .withFirstName("tesname").withMiddleName("213").withLastName("teeest").withNickName("test")
@@ -29,8 +30,9 @@ public class ClientModificationTests extends TestBase {
     @Test
     public void testClientModification() {
         app.goTo().homePage();
-        List<ClientData> before = app.client().list();
-        app.client().selectContactById(before.get(0).getId());
+        Set<ClientData> before = app.client().all();
+        ClientData deletedClient = before.iterator().next();
+        app.client().selectClientById(deletedClient.getId());
         app.client().editSelectedClient();
         ClientData client = new ClientData()
                 .withFirstName("tesname").withMiddleName("213").withLastName("teeest").withNickName("test")
@@ -40,13 +42,10 @@ public class ClientModificationTests extends TestBase {
                 .fillClientForm(client, false);
         app.client().submitClientCreation();
         app.goTo().homePage();
-        List<ClientData> after = app.client().list();
+        Set<ClientData> after = app.client().all();
         assertEquals(after.size(), before.size(), "Некорректное количество клиентов");
-        before.remove(before.size() - 1);
+        before.remove(deletedClient);
         before.add(client);
-        Comparator<? super ClientData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
         assertEquals(after, before);
     }
 }
