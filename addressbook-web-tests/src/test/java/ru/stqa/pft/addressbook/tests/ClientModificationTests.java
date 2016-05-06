@@ -17,27 +17,27 @@ public class ClientModificationTests extends TestBase {
 
     @BeforeMethod
     public void areThereClients() {
-        if (!app.getClientHelper().isElementPresent(By.name("entry"))) {
-            app.getClientHelper().initClientGeneration();
-            app.getClientHelper().fillClientForm(new ClientData("tesname", "213", "teeest", "test",
+        if (app.client().list().size() == 0) {
+            app.client().initClientGeneration();
+            app.client().fillClientForm(new ClientData("tesname", "213", "teeest", "test",
                     "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", "Test1"), true);
-            app.getClientHelper().submitClientCreation();
+            app.client().submitClientCreation();
         }
     }
 
     @Test
     public void testClientModification() {
-        app.getNavigationHelper().goToHomePage();
-        List<ClientData> before = app.getClientHelper().getClientList();
-        app.getClientHelper().selectContactById(before.get(0).getId());
-        app.getClientHelper().editSelectedClient();
+        app.goTo().homePage();
+        List<ClientData> before = app.client().list();
+        app.client().selectContactById(before.get(0).getId());
+        app.client().editSelectedClient();
         ClientData client = new ClientData("tesname", "213", "teeest", "test",
                 "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", null);
-        app.getClientHelper()
+        app.client()
                 .fillClientForm(client, false);
-        app.getClientHelper().submitClientCreation();
-        app.getNavigationHelper().goToHomePage();
-        List<ClientData> after = app.getClientHelper().getClientList();
+        app.client().submitClientCreation();
+        app.goTo().homePage();
+        List<ClientData> after = app.client().list();
         assertEquals(after.size(), before.size(), "Некорректное количество клиентов");
         before.remove(before.size() - 1);
         before.add(client);

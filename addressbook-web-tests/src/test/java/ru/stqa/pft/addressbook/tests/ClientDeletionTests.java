@@ -17,26 +17,26 @@ import static org.testng.Assert.assertEquals;
 public class ClientDeletionTests extends TestBase {
     @BeforeMethod
     public void areThereClients() {
-        if (!app.getClientHelper().isElementPresent(By.name("entry"))) {
-            app.getClientHelper().initClientGeneration();
-            app.getClientHelper().fillClientForm(new ClientData("tesname", "213", "teeest", "test",
+        if (app.client().list().size() == 0) {
+            app.client().initClientGeneration();
+            app.client().fillClientForm(new ClientData("tesname", "213", "teeest", "test",
                     "test", "sssss", "123", "4421", "555", "1111", "1991", "2313", "Test1"), true);
-            app.getClientHelper().submitClientCreation();
+            app.client().submitClientCreation();
         }
     }
     @Test
     public void testClientDeletion(){
-        app.getNavigationHelper().goToHomePage();
-        List<ClientData> before = app.getClientHelper().getClientList();
-        app.getClientHelper().getClients(before.size() - 1);
-        app.getClientHelper().deleteClient();
-        app.getClientHelper().acceptDelete();
-        app.getNavigationHelper().goToHomePage();
-        List<ClientData> after = app.getClientHelper().getClientList();
+        app.goTo().homePage();
+        List<ClientData> before = app.client().list();
+        int index = before.size() - 1;
+        app.client().delete(index);
+        app.goTo().homePage();
+        List<ClientData> after = app.client().list();
         assertEquals(after.size(), before.size() - 1, "Некорректное количество клиентов");
-        before.remove(before.size() - 1);
+        before.remove(index);
         assertEquals(after,before);
         assertEquals(new HashSet<Object>(after), new HashSet<Object>(before));
 
     }
+
 }

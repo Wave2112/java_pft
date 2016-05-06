@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Sergei on 15.04.2016.
  */
 public class ClientHelper extends HelperBase {
-    public List<ClientData> getClientList() {
+    public List<ClientData> list() {
         List<ClientData> clients = new ArrayList<>();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row : rows) {
@@ -153,4 +153,11 @@ public class ClientHelper extends HelperBase {
     public void editSelectedClient() {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
+
+    public void delete(int index) {
+       getClients(index);
+       deleteClient();
+       acceptDelete();
+    }
+
 }
