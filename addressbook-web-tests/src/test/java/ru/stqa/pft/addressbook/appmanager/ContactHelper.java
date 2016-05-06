@@ -37,7 +37,9 @@ public class ContactHelper extends HelperBase {
         getEmail2(By.name("email2"), contactData.getEmail2());
         getEmail3(By.name("email3"), contactData.getEmail3());
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            if (isElementPresent(By.name("new_group"))) {
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -145,7 +147,7 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void deleteClient() {
+    public void deleteContact() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
         contactCache = null;
     }
@@ -159,15 +161,18 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("input[value = '" + id + "']")).click();
     }
 
-    public void editSelectedClient() {
+    public void editSelectedContact() {
         click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
         contactCache = null;
+    }
+    public void detailsSelectedContact() {
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[7]/a/img"));
     }
 
 
     public void delete(ContactData contact) {
         selectClientById(contact.getId());
-        deleteClient();
+        deleteContact();
         contactCache = null;
         acceptDelete();
     }

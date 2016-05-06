@@ -34,7 +34,7 @@ public class ContactModificationTests extends TestBase {
         ContactData client = new ContactData().withId(modifiedClient.getId())
                 .withFirstName("tesname").withLastName("teeest").withAddress("sssss");
         app.contact().selectClientById(modifiedClient.getId());
-        app.contact().editSelectedClient();
+        app.contact().editSelectedContact();
         app.contact()
                 .fillClientForm(client, false);
         app.contact().submitClientCreation();
