@@ -21,21 +21,22 @@ public class ContactHelper extends HelperBase {
     }
 
     public void fillClientForm(ContactData contactData, boolean creation) {
-        getFirstName(By.name("firstname"), contactData.getFirstName());
-        getMiddleName(By.name("middlename"), contactData.getMiddleName());
-        getLastName(By.name("lastname"), contactData.getLastName());
-        getNickName(By.name("nickname"), contactData.getNickName());
-        getCompany(By.name("company"), contactData.getCompany());
-        getAddress(By.name("address"), contactData.getAddress());
-        getHomePhone(By.name("home"), contactData.getHomePhone());
-        getMobilePhone(By.name("mobile"), contactData.getMobilePhone());
-        getWorkPhone(By.name("work"), contactData.getWorkPhone());
-        getFax(By.name("fax"), contactData.getFax());
-        getDate(By.name("byear"), contactData.getDate());
-        getAnniversary(By.name("ayear"), contactData.getAnnyversary());
-        getEmail(By.name("email"), contactData.getEmail());
-        getEmail2(By.name("email2"), contactData.getEmail2());
-        getEmail3(By.name("email3"), contactData.getEmail3());
+        type(By.name("firstname"), contactData.getFirstName());
+        type(By.name("middlename"), contactData.getMiddleName());
+        type(By.name("lastname"), contactData.getLastName());
+        type(By.name("nickname"), contactData.getNickName());
+        type(By.name("company"), contactData.getCompany());
+        type(By.name("address"), contactData.getAddress());
+        type(By.name("home"), contactData.getHomePhone());
+        type(By.name("mobile"), contactData.getMobilePhone());
+        type(By.name("work"), contactData.getWorkPhone());
+        type(By.name("fax"), contactData.getFax());
+        type(By.name("byear"), contactData.getDate());
+        type(By.name("ayear"), contactData.getAnnyversary());
+        type(By.name("email"), contactData.getEmail());
+        type(By.name("email2"), contactData.getEmail2());
+        type(By.name("email3"), contactData.getEmail3());
+        attach(By.name("photo"), contactData.getPhoto());
         if (creation) {
             if (isElementPresent(By.name("new_group"))) {
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -43,97 +44,6 @@ public class ContactHelper extends HelperBase {
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
-    }
-
-    private void getEmail(By email, String emailString) {
-        click(email);
-        clear(email);
-        type(email, emailString);
-    }
-
-    private void getEmail2(By email, String emailString) {
-        click(email);
-        clear(email);
-        type(email, emailString);
-    }
-
-    private void getEmail3(By email, String emailString) {
-        click(email);
-        clear(email);
-        type(email, emailString);
-    }
-
-    private void getDate(By date, String date2) {
-        click(By.xpath("//div[@id='content']/form/select[1]//option[15]"));
-        click(By.xpath("//div[@id='content']/form/select[2]//option[3]"));
-        type(date, date2);
-    }
-
-    private void getAnniversary(By date, String date2) {
-        click(By.xpath("//div[@id='content']/form/select[4]//option[5]"));
-        click(By.xpath("//div[@id='content']/form/select[3]//option[3]"));
-        type(date, date2);
-    }
-
-    private void getFax(By fax, String fax2) {
-        click(fax);
-        clear(fax);
-        type(fax, fax2);
-    }
-
-    private void getWorkPhone(By work, String work2) {
-        click(work);
-        clear(work);
-        type(work, work2);
-    }
-
-
-    private void getHomePhone(By home, String home2) {
-        click(home);
-        clear(home);
-        type(home, home2);
-    }
-
-    private void getMobilePhone(By mobile, String mobile2) {
-        click(mobile);
-        clear(mobile);
-        type(mobile, mobile2);
-    }
-
-    private void getAddress(By address, String address2) {
-        click(address);
-        clear(address);
-        type(address, address2);
-    }
-
-    private void getCompany(By company, String company2) {
-        click(company);
-        clear(company);
-        type(company, company2);
-    }
-
-    private void getNickName(By nickname, String nickName) {
-        click(nickname);
-        clear(nickname);
-        type(nickname, nickName);
-    }
-
-    private void getLastName(By lastname, String lastName) {
-        click(lastname);
-        clear(lastname);
-        type(lastname, lastName);
-    }
-
-    private void getMiddleName(By middlename, String middleName) {
-        click(middlename);
-        clear(middlename);
-        type(middlename, middleName);
-    }
-
-    private void getFirstName(By firstname, String firstName) {
-        click(firstname);
-        clear(firstname);
-        type(firstname, firstName);
     }
 
     public void submitClientCreation() {
