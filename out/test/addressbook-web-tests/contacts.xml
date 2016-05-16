@@ -1,0 +1,20 @@
+<list>
+  <ru.stqa.pft.addressbook.model.ContactData>
+    <firstName>firstName 0</firstName>
+    <address>address 0</address>
+    <mobile>mobilePhone 0</mobile>
+    <id>0</id>
+  </ru.stqa.pft.addressbook.model.ContactData>
+  <ru.stqa.pft.addressbook.model.ContactData>
+    <firstName>firstName 1</firstName>
+    <address>address 1</address>
+    <mobile>mobilePhone 1</mobile>
+    <id>0</id>
+  </ru.stqa.pft.addressbook.model.ContactData>
+  <ru.stqa.pft.addressbook.model.ContactData>
+    <firstName>firstName 2</firstName>
+    <address>address 2</address>
+    <mobile>mobilePhone 2</mobile>
+    <id>0</id>
+  </ru.stqa.pft.addressbook.model.ContactData>
+</list>
