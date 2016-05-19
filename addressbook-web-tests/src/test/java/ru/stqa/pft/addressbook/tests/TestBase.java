@@ -15,7 +15,7 @@ import static org.openqa.selenium.remote.BrowserType.FIREFOX;
 public class TestBase {
 
     protected static final ApplicationManager app =
-            new ApplicationManager(getProperty("browser", BrowserType.CHROME));
+            new ApplicationManager(getProperty("browser", BrowserType.FIREFOX));
 
     @BeforeSuite
     public void setUp() throws Exception {

@@ -8,20 +8,48 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
+import static java.lang.System.getProperty;
 import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Sergei on 16.04.2016.
  */
 public class ContactDeletionTests extends TestBase {
+    private final Properties properties;
+
+    public ContactDeletionTests() {
+        properties = new Properties();
+    }
+
     @BeforeMethod
-    public void areThereClients() {
+    public void areThereClients() throws IOException {
+        String target = getProperty("target", "local");
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         if (app.contact().all().size() == 0) {
             app.contact().initClientGeneration();
             app.contact().fillClientForm(new ContactData()
-                    .withFirstName("tesname").withMiddleName("213").withLastName("teeest").withNickName("test")
-                    .withCompany("test").withAddress("sssss").withHomePhone("123").withWorkPhone("4421")
-                    .withFax("555").withDate("1111").withDate("1991").withAnnyversary("2313").withGroup("Test1"), true);
+                    .withFirstName(properties.getProperty("web.FirstName"))
+                    .withMiddleName(properties.getProperty("web.MiddleName"))
+                    .withLastName(properties.getProperty("web.LastName"))
+                    .withNickName(properties.getProperty("web.NickName"))
+                    .withCompany(properties.getProperty("web.Company"))
+                    .withAddress(properties.getProperty("web.Address"))
+                    .withHomePhone(properties.getProperty("web.HomePhone"))
+                    .withMobilePhone(properties.getProperty("web.MobilePhone"))
+                    .withWorkPhone(properties.getProperty("web.WorkPhone"))
+                    .withFax(properties.getProperty("web.Fax"))
+                    .withDate(properties.getProperty("web.Date"))
+                    .withAnnyversary(properties.getProperty("web.Annyversary"))
+                    .withGroup(properties.getProperty("web.Group"))
+                    .withEmail(properties.getProperty("web.Email"))
+                    .withEmail2(properties.getProperty("web.Email2"))
+                    .withEmail3(properties.getProperty("web.Email3")), true);
             app.contact().submitClientCreation();
         }
     }
