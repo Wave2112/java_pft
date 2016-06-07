@@ -5,7 +5,6 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
@@ -43,7 +42,6 @@ public class ContactCreationTests extends TestBase {
                 .withWorkPhone(properties.getProperty("web.WorkPhone"))
                 .withFax(properties.getProperty("web.Fax"))
                 .withDate(properties.getProperty("web.Date"))
-                .withAnnyversary(properties.getProperty("web.Annyversary"))
                 .withGroup(properties.getProperty("web.Group"))
                 .withEmail(properties.getProperty("web.Email"))
                 .withEmail2(properties.getProperty("web.Email2"))

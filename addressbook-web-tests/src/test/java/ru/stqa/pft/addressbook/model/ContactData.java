@@ -1,38 +1,80 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
     @XStreamAlias("contacts")
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String nickName;
-    private String company;
-    private String address;
-    private String home;
-    private String mobile;
-    private String work;
-    private String allPhones;
-    private String fax;
-    private String date;
-    private String annyversary;
-    private String group;
-    private String email;
-    private String email2;
-    private String email3;
-    private String allEmails;
+    @Id
+    @Column(name = "id")
     private int id;
-    private File photo;
+    @Column(name = "firstname")
+    private String firstName;
+    @Column(name = "middlename")
+    private String middleName;
+    @Column(name = "lastname")
+    private String lastName;
+    @Column(name = "nickname")
+    private String nickName;
+    @Column(name = "company")
+    private String company;
+    @Column(name = "address")
+    @Type(type = "text")
+    private String address;
+    @Column(name = "home")
+    @Type(type = "text")
+    private String home;
+    @Column(name = "mobile")
+    @Type(type = "text")
+    private String mobile;
+    @Column(name = "work")
+    @Type(type = "text")
+    private String work;
+    @Transient
+    private String allPhones;
+    @Column(name = "fax")
+    @Type(type = "text")
+    private String fax;
 
-    public File withPhoto() {
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
+    @Transient
+    private String date;
+    @Transient
+    private String group;
+    @Column(name = "email")
+    @Type(type = "text")
+    private String email;
+    @Column(name = "email2")
+    @Type(type = "text")
+    private String email2;
+    @Column(name = "email3")
+    @Type(type = "text")
+    private String email3;
+    @Transient
+    private String allEmails;
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
+
+    public String withPhoto() {
         return photo;
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -138,10 +180,7 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withAnnyversary(String annyversary) {
-        this.annyversary = annyversary;
-        return this;
-    }
+
 
     public ContactData withGroup(String group) {
         this.group = group;
@@ -222,10 +261,6 @@ public class ContactData {
         return date;
     }
 
-    public String getAnnyversary() {
-        return date;
-    }
-
     public String getGroup() {
         return group;
     }
@@ -236,5 +271,5 @@ public class ContactData {
     public String getMobilePhone() {
         return mobile;
     }
-    public File getPhoto(){return photo;}
+    public File getPhoto(){return new File(photo);}
 }

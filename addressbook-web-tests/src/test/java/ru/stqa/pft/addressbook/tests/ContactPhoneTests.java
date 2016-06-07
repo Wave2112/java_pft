@@ -44,7 +44,6 @@ public class ContactPhoneTests extends TestBase {
                     .withWorkPhone(properties.getProperty("web.WorkPhone"))
                     .withFax(properties.getProperty("web.Fax"))
                     .withDate(properties.getProperty("web.Date"))
-                    .withAnnyversary(properties.getProperty("web.Annyversary"))
                     .withGroup(properties.getProperty("web.Group"))
                     .withEmail(properties.getProperty("web.Email"))
                     .withEmail2(properties.getProperty("web.Email2"))
