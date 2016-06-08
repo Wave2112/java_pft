@@ -6,7 +6,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
@@ -27,20 +26,24 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private ContactHelper contactHelper;
     private GroupHelper groupHelper;
+    private DbHelper dbHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
         properties = new Properties();
     }
 
+
     public void init() throws IOException {
         String target = getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-        if (Objects.equals(browser, FIREFOX)){
+        dbHelper = new DbHelper();
+
+        if (Objects.equals(browser, FIREFOX)) {
             wd = new FirefoxDriver();
-        } else if (Objects.equals(browser, CHROME)){
+        } else if (Objects.equals(browser, CHROME)) {
             wd = new ChromeDriver();
-        } else if (Objects.equals(browser, IE)){
+        } else if (Objects.equals(browser, IE)) {
             wd = new InternetExplorerDriver();
         }
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
@@ -50,10 +53,8 @@ public class ApplicationManager {
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
+
     }
-
-
-
 
     public void stop() {
         wd.quit();
@@ -71,5 +72,8 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
+    public DbHelper db() {
+        return dbHelper;
+    }
 
 }

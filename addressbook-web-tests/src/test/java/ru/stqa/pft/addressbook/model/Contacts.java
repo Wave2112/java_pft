@@ -1,38 +1,44 @@
 package ru.stqa.pft.addressbook.model;
+
 import com.google.common.collect.ForwardingSet;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by Sergei on 06.05.2016.
  */
-public class Contacts extends ForwardingSet <ContactData> {
+public class Contacts extends ForwardingSet<ContactData> {
 
-private Set<ContactData> delegate;
+    private Set<ContactData> delegate;
 
-public Contacts(Contacts contacts) {
+    public Contacts(Contacts contacts) {
         this.delegate = new HashSet<>(contacts.delegate());
-        }
+    }
 
-public Contacts() {
+    public Contacts() {
         this.delegate = new HashSet<>();
-        }
+    }
 
-@Override
-protected Set<ContactData> delegate() {
+    public Contacts(Collection<ContactData> contacts) {
+        this.delegate = new HashSet<ContactData>(contacts);
+    }
+
+    @Override
+    protected Set<ContactData> delegate() {
         return delegate;
-        }
+    }
 
-public Contacts withAdded(ContactData contact) {
+    public Contacts withAdded(ContactData contact) {
         Contacts contacts = new Contacts(this);
         contacts.add(contact);
         return contacts;
-        }
+    }
 
-public Contacts without(ContactData contact) {
+    public Contacts without(ContactData contact) {
         Contacts contacts = new Contacts(this);
         contacts.remove(contact);
         return contacts;
-        }
-        }
+    }
+}
