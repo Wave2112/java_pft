@@ -16,11 +16,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class GroupModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions(){
-
         if (app.db().groups().size() == 0) {
-            app.goTo().groupPage();
-            app.group().create(new GroupData().withName("Test1"));
-        }
+                app.goTo().groupPage();
+                app.group().create(new GroupData().withName("test").withHeader("test2").withFooter(null));
+            } else {
+                app.goTo().groupPage();
+            }
     }
     @Test
     public void testGroupModification(){
