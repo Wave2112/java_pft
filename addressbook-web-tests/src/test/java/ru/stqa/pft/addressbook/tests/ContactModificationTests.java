@@ -19,6 +19,18 @@ import static org.testng.Assert.assertEquals;
  * Created by Sergei on 16.04.2016.
  */
 public class ContactModificationTests extends TestBase {
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (app.db().contacts().size() == 0) {
+            app.goTo().homePage();
+            ContactData contact = new ContactData().withFirstName("TestFirstName").withLastName("TestLastName")
+                    .withMiddleName("TestMiddleName")
+                    .withMobilePhone("223322");
+            app.contact().initClientGeneration();
+        } else {
+            app.goTo().homePage();
+        }
+    }
     private final Properties properties;
 
     public ContactModificationTests() {
@@ -54,7 +66,7 @@ public class ContactModificationTests extends TestBase {
     @Test
     public void testClientModification() {
         app.goTo().homePage();
-        Contacts before = app.contact().all();
+        Contacts before =  app.db().contacts();
         ContactData modifiedClient = before.iterator().next();
         ContactData client = new ContactData().withId(modifiedClient.getId())
                 .withFirstName(properties.getProperty("web.FirstName"))
@@ -78,7 +90,7 @@ public class ContactModificationTests extends TestBase {
                 .fillClientForm(client, false);
         app.contact().submitClientCreation();
         app.goTo().homePage();
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size(), "Некорректное количество клиентов");
         assertThat(after, equalTo(before.without(modifiedClient).withAdded(client)));
     }

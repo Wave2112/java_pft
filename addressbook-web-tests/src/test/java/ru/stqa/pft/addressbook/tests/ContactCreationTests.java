@@ -1,8 +1,10 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,7 +17,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 public class ContactCreationTests extends TestBase {
-
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
+            GroupData newGroup = new GroupData().withName("test").withHeader("test2").withFooter("test3");
+            app.group().create(newGroup);
+        }
+    }
 
     private final Properties properties;
 
@@ -27,7 +36,7 @@ public class ContactCreationTests extends TestBase {
         String target = getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         app.goTo().homePage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         app.contact().initClientGeneration();
         File photo = new File("src/test/resources/stru.jpg");
         ContactData client = new ContactData()
@@ -50,7 +59,7 @@ public class ContactCreationTests extends TestBase {
         app.contact().fillClientForm(client, true);
         app.contact().submitClientCreation();
         app.goTo().homePage();
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size() + 1, "Некорректное количество клиентов");
         assertThat(after, equalTo(
                 before.withAdded(client.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));

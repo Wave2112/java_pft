@@ -20,6 +20,18 @@ import static org.testng.Assert.assertEquals;
  * Created by Sergei on 16.04.2016.
  */
 public class ContactDeletionTests extends TestBase {
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (app.db().contacts().size() == 0) {
+            app.goTo().homePage();
+            ContactData contact = new ContactData().withFirstName("TestFirstName").withLastName("TestLastName")
+                    .withMiddleName("TestMiddleName")
+                    .withMobilePhone("223322");
+            app.contact().initClientGeneration();
+        } else {
+            app.goTo().homePage();
+        }
+    }
     private final Properties properties;
 
     public ContactDeletionTests() {
@@ -54,11 +66,11 @@ public class ContactDeletionTests extends TestBase {
     @Test
     public void testClientDeletion(){
         app.goTo().homePage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData deletedClient = before.iterator().next();
         app.contact().delete(deletedClient);
         app.goTo().homePage();
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size() - 1, "Некорректное количество клиентов");
         MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedClient)));
     }
