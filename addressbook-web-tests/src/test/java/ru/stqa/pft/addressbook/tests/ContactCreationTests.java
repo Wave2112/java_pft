@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.File;
 import java.io.FileReader;
@@ -33,13 +34,9 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void testContactCreation() throws IOException {
-        String target = getProperty("target", "local");
-        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-        app.goTo().homePage();
-        Contacts before = app.db().contacts();
-        app.contact().initClientGeneration();
+        Groups groups = app.db().groups();
         File photo = new File("src/test/resources/stru.jpg");
-        ContactData client = new ContactData()
+        ContactData newContactData = new ContactData()
                 .withFirstName(properties.getProperty("web.FirstName"))
                 .withMiddleName(properties.getProperty("web.MiddleName"))
                 .withLastName(properties.getProperty("web.LastName"))
@@ -55,14 +52,20 @@ public class ContactCreationTests extends TestBase {
                 .withEmail(properties.getProperty("web.Email"))
                 .withEmail2(properties.getProperty("web.Email2"))
                 .withEmail3(properties.getProperty("web.Email3"))
-                .withPhoto(photo);
-        app.contact().fillClientForm(client, true);
+                .withPhoto(photo)
+                .inGroup(groups.iterator().next());
+        String target = getProperty("target", "local");
+        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+        app.goTo().homePage();
+        Contacts before = app.db().contacts();
+        app.contact().initClientGeneration();
+        app.contact().fillClientForm(newContactData, true);
         app.contact().submitClientCreation();
         app.goTo().homePage();
         Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size() + 1, "Некорректное количество клиентов");
         assertThat(after, equalTo(
-                before.withAdded(client.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+                before.withAdded(newContactData.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
         verifyContactListInUI();
     }
 }

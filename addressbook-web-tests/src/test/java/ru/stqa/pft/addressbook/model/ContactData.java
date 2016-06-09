@@ -5,6 +5,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -68,6 +70,12 @@ public class ContactData {
     @Column(name = "photo")
     @Type(type = "text")
     private String photo;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+
+    private Set<GroupData> groups = new HashSet<>();
 
     public String withPhoto() {
         return photo;
@@ -181,8 +189,12 @@ public class ContactData {
     }
 
 
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
 
     public ContactData withGroup(String group) {
+
         this.group = group;
         return this;
     }
@@ -261,9 +273,7 @@ public class ContactData {
         return date;
     }
 
-    public String getGroup() {
-        return group;
-    }
+
     public int getId() {
         return id;
     }
@@ -272,4 +282,9 @@ public class ContactData {
         return mobile;
     }
     public File getPhoto(){return new File(photo);}
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
 }
