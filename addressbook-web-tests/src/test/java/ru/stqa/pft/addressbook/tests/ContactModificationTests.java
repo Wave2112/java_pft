@@ -93,5 +93,6 @@ public class ContactModificationTests extends TestBase {
         Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size(), "Некорректное количество клиентов");
         assertThat(after, equalTo(before.without(modifiedClient).withAdded(client)));
+        verifyContactListInUI();
     }
 }

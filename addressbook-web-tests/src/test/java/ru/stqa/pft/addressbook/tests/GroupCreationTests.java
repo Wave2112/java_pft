@@ -36,15 +36,16 @@ public class GroupCreationTests extends TestBase {
         }
     }
 
-    @Test(dataProvider = "validGroups")
-    public void testGroupCreation(GroupData group) {
+    @Test
+    public void testGroupCreation() {
         Groups before = app.db().groups();
-        group = new GroupData().withName("test1").withHeader("test2").withFooter("test3");
+        GroupData group = new GroupData().withName("test1").withHeader("test2").withFooter("test3");
         app.goTo().groupPage();
         app.group().create(group);
         assertThat(app.group().count(), equalTo(before.size() + 1));
         Groups after = app.db().groups();
         assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+        verifyGroupListUI();
     }
 
 }

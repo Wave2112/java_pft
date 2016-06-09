@@ -73,6 +73,7 @@ public class ContactDeletionTests extends TestBase {
         Contacts after = app.db().contacts();
         assertEquals(after.size(), before.size() - 1, "Некорректное количество клиентов");
         MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.without(deletedClient)));
+        verifyContactListInUI();
     }
 
 }

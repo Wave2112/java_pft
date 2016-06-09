@@ -63,5 +63,6 @@ public class ContactCreationTests extends TestBase {
         assertEquals(after.size(), before.size() + 1, "Некорректное количество клиентов");
         assertThat(after, equalTo(
                 before.withAdded(client.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+        verifyContactListInUI();
     }
 }
